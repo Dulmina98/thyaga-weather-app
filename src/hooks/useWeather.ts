@@ -16,8 +16,12 @@ const useWeather = () => {
         setLoading(true);
         setError(null);
 
+        const baseUrl = import.meta.env.DEV
+          ? '/weather-api/data/2.5/weather'
+          : 'https://api.openweathermap.org/data/2.5/weather';
+
         const requests = cityIds.map((id) =>
-          axios.get<WeatherItem>('https://api.openweathermap.org/data/2.5/weather', {
+          axios.get<WeatherItem>(baseUrl, {
             params: {
               id,
               units: 'metric',
