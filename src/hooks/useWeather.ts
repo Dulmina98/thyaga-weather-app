@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import type { WeatherItem, WeatherApiResponse } from '../types/weather';
+import type { WeatherItem } from '../types/weather';
 import citiesData from '../data/cities.json';
 
 const cityIds = citiesData.List.map((city) => city.CityCode);
@@ -16,18 +16,18 @@ const useWeather = () => {
         setLoading(true);
         setError(null);
 
-        const response = await axios.get<WeatherApiResponse>(
-          'http://api.openweathermap.org/data/2.5/group',
-          {
+        const requests = cityIds.map((id) =>
+          axios.get<WeatherItem>('https://api.openweathermap.org/data/2.5/weather', {
             params: {
-              id: cityIds.join(','),
+              id,
               units: 'metric',
               appid: import.meta.env.VITE_WEATHER_API_KEY,
             },
-          }
+          })
         );
 
-        setWeatherData(response.data.list);
+        const responses = await Promise.all(requests);
+        setWeatherData(responses.map((res) => res.data));
       } catch (err) {
         if (axios.isAxiosError(err)) {
           if (err.response) {
