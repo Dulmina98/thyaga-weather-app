@@ -187,3 +187,4 @@ GET /data/2.5/weather?q={cityName}&units=metric&appid={API_KEY}
 ## 📜 License
 
 This project was created as part of a front-end assignment for [Thyaga](https://thyaga.lk).
+<!-- update 1 -->
