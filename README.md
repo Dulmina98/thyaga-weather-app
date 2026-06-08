@@ -193,3 +193,4 @@ This project was created as part of a front-end assignment for [Thyaga](https://
 <!-- update 4 -->
 <!-- update 5 -->
 <!-- update 6 -->
+<!-- update 7 -->
